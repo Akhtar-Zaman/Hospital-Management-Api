@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hospitalauth.models import HospitalUser
+from hospitalauth.models import HospitalUser, Patient, Doctor, Appointment, MedicalRecord, Prescription
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
 
@@ -34,3 +34,32 @@ class HospitalUserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = HospitalUser
         fields = ['id', 'name', 'email', 'address', 'date_of_birth', 'phone_number',]
+
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = '__all__'
+
+class DoctorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Doctor
+        fields = '__all__'
+
+class AppointmentSerializer(serializers.ModelSerializer):
+    patient_name = serializers.CharField(source='patient.first_name', read_only=True)
+    doctor_name = serializers.CharField(source='doctor.first_name', read_only=True)
+
+    class Meta:
+        model = Appointment
+        fields = ['appointment_id', 'patient_name', 'doctor_name', 'appointment_date', 'appointment_time', 'reason_for_visit']
+
+class MedicalRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicalRecord
+        fields = '__all__'
+
+class PrescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prescription
+        fields = '__all__'

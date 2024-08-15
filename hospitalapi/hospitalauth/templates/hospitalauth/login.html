@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in/up Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'hospitalauth/css/style2.css' %}">
+</head>
+<body>
+    <!-- <h2>Weekly Coding Challenge #1: Sign in/up Form</h2> -->
+    <div class="container" id="container">
+        <div class="form-container sign-up-container" >
+            <form method="post" action="{% url 'hospitalauth:regist' %}">
+                {% csrf_token %}
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your email for registration</span>
+                <div style="height: 400px; overflow-y: auto; overflow-x: hidden; padding: 10px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control mb-2" placeholder="Name" name="name"/>
+                        <input type="email" class="form-control mb-2" placeholder="Email" name="email" />
+                        <input type="text" class="form-control mb-2" placeholder="Address" name="address"/>
+                        <input type="text" class="form-control mb-2" placeholder="Date of Birth" name="date_of_birth"/>
+                        <input type="text" class="form-control mb-2" placeholder="Phone Number" name="phone_number" />
+                        <input type="password" class="form-control mb-2" placeholder="Password" name="password" />
+                        <input type="password" class="form-control mb-2" placeholder="Confirm Password" name="password2" />
+                    </div>
+                </div>
+                <button type="submit">Sign Up</button>
+                {% if error %}
+                <p class="error" style="color: red;">{{ error }}</p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="{% url 'hospitalauth:login' %}">
+                {% csrf_token %}
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input type="email" placeholder="Email" name="email"/>
+                <input type="password" placeholder="Password" name="password"/>
+                <a href="#">Forgot your password?</a>
+                <button type="submit">Sign In</button>
+                {% if error %}
+                <p class="error" style="color: red;">{{ error }}</p>
+                {% endif %}
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'hospitalauth/js/script.js' %}"></script>
+</body>
+</html>
